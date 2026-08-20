@@ -12,7 +12,9 @@ Build-Depends: autotools-dev,
                libczmq-dev,
                libjson-c-dev (>= 0.10),
                pkg-config,
-               libmnl-dev
+               libmnl-dev,
+               libnl-3-dev,
+               libnl-genl-3-dev
 Standards-Version: 3.9.8
 Homepage: http://www.tcpdump.org/
 Vcs-Browser: https://anonscm.debian.org/cgit/users/rfrancoise/libpcap.git/

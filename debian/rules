@@ -15,6 +15,14 @@ endif
 %:
 	dh $@ --with autoreconf
 
+# configure's libnl V_INCLS accumulator ends up empty in the generated
+# Makefile despite nl-3 detection succeeding (an upstream autoconf ordering
+# quirk), and the generated Makefile's CPPFLAGS is a plain make variable
+# that configure never substitutes a value into -- so the include path has
+# to be injected at build time on the make command line, not via configure.
+override_dh_auto_build:
+	dh_auto_build -- CPPFLAGS="-I/usr/include/libnl3"
+
 override_dh_install-arch:
 	dh_install --fail-missing
 	# pcap-filter man page goes into libpcap0.8 (#527599)
