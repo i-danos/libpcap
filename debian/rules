@@ -20,8 +20,23 @@ endif
 # quirk), and the generated Makefile's CPPFLAGS is a plain make variable
 # that configure never substitutes a value into -- so the include path has
 # to be injected at build time on the make command line, not via configure.
+#
+# It has to go into INCLS, not CPPFLAGS: the compile rule is
+#
+#     .c.o:
+#             $(CC) $(FULL_CFLAGS) -c $(srcdir)/$*.c
+#     FULL_CFLAGS = $(CCOPT) $(INCLS) $(DEFS) $(CFLAGS)
+#
+# so CPPFLAGS is never read and the -I never reached gcc:
+#
+#     ./pcap-linux.c:248:10: fatal error: netlink/genl/genl.h: No such file
+#       or directory
+#
+# INCLS is "-I. @V_INCLS@", and V_INCLS is the accumulator that ends up empty,
+# so restating -I. and adding the libnl3 path loses nothing. Overriding CFLAGS
+# instead would discard the hardening flags dh passes in.
 override_dh_auto_build:
-	dh_auto_build -- CPPFLAGS="-I/usr/include/libnl3"
+	dh_auto_build -- INCLS="-I. -I/usr/include/libnl3"
 
 override_dh_install-arch:
 	dh_install --fail-missing
