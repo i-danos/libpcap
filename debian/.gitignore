@@ -1,0 +1,11 @@
+/tmp/
+/.debhelper/
+/files
+/*.substvars
+/*.debhelper.log
+/debhelper-build-stamp
+/autoreconf.*
+/libpcap-dev/
+/libpcap0.8-dev/
+/libpcap0.8/
+/libpcap0.8-dbg/
