@@ -12,6 +12,11 @@ libpcap (1.8.1-3vyatta12) unstable; urgency=medium
     producing libpcap.so.1, while debian/libpcap0.8.symbols and every
     dependent package still expect libpcap.so.0.8. shared-lib.diff is what
     pins the SONAME to Debian's historical 0.8 scheme.
+  * Untrack libpcap-symbols.lds: the same bdaab8b commit also committed this
+    file directly (content-identical to what linker-script.diff itself
+    creates), which went unnoticed while series was empty and the patch
+    wasn't applying, but conflicts with the patch now that it is: "The next
+    patch would create the file libpcap-symbols.lds, which already exists!".
 
  -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 07:00:00 +0800
 
