@@ -1,3 +1,20 @@
+libpcap (1.8.1-3vyatta12) unstable; urgency=medium
+
+  * debian/patches/series: restore the 10 patches this file lost in
+    bdaab8b661e ("Build against libnl"), an otherwise-unrelated commit that
+    also accidentally emptied series (that commit's own build evidence shows
+    the patches were still applied when it ran, so the loss was in the git
+    history, not the actual build, until the next OBS build re-exported from
+    a clean git tree and found none of them applied).
+  * Restoring shared-lib.diff in particular fixes the resulting OBS build
+    failure: with no patches applied, upstream's own Makefile.in derives the
+    shared library's SONAME from VERSION's major component ("1.8.1" -> "1"),
+    producing libpcap.so.1, while debian/libpcap0.8.symbols and every
+    dependent package still expect libpcap.so.0.8. shared-lib.diff is what
+    pins the SONAME to Debian's historical 0.8 scheme.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 07:00:00 +0800
+
 libpcap (1.8.1-3vyatta11) unstable; urgency=medium
 
   [ Ramesh Devarajan ]
