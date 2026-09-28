@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/@DEB_HOST_MULTIARCH@
+includedir=${prefix}/include
+
+Name: libpcap
+Description: Portable Packet Capture library
+Version: @VERSION@
+Libs: -L${libdir} -lpcap
+Cflags: -I${includedir}

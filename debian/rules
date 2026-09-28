@@ -1,6 +1,8 @@
 #!/usr/bin/make -f
 
 DEB_HOST_ARCH_OS := $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_MULTIARCH := $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+PCAP_VERSION := $(shell cat VERSION)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 export with_pcap=linux
@@ -37,6 +39,20 @@ endif
 # instead would discard the hardening flags dh passes in.
 override_dh_auto_build:
 	dh_auto_build -- INCLS="-I. -I/usr/include/libnl3"
+
+# This 1.8.1-era libpcap predates pkg-config support entirely (only the
+# pcap-config shell script existed then); modern meson-based consumers
+# (DPDK 24.11, used by vyatta-dataplane) look libpcap up via pkg-config only
+# and fail outright without a libpcap.pc: "Package libpcap was not found in
+# the pkg-config search path." Generate one from the template rather than
+# backporting pkg-config support into the actual build.
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig
+	sed -e 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/' \
+	    -e 's/@VERSION@/$(PCAP_VERSION)/' \
+	    debian/libpcap.pc.in \
+	    > debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/libpcap.pc
 
 override_dh_install-arch:
 	dh_install --fail-missing

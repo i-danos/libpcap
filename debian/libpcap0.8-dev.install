@@ -2,4 +2,5 @@ usr/bin
 usr/include/pcap*
 usr/lib/*/libpcap.a
 usr/lib/*/libpcap.so
+usr/lib/*/pkgconfig/libpcap.pc
 usr/share/man

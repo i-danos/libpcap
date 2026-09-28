@@ -1,3 +1,16 @@
+libpcap (1.8.1-3vyatta17) unstable; urgency=medium
+
+  * Add debian/libpcap.pc.in, generated into libpcap0.8-dev at
+    usr/lib/<multiarch>/pkgconfig/libpcap.pc. This 1.8.1-era libpcap predates
+    pkg-config support entirely (only the pcap-config shell script existed
+    then); DPDK 24.11 (Debian:13/standard, needed by vyatta-dataplane) looks
+    libpcap up via pkg-config only and failed outright without it:
+    "Package libpcap was not found in the pkg-config search path." Generated
+    from a template at install time rather than backporting real pkg-config
+    support into the upstream build.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 10:45:00 +0800
+
 libpcap (1.8.1-3vyatta16) unstable; urgency=medium
 
   * Rename the per-package debhelper config files to match: debian/
