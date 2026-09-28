@@ -1,3 +1,20 @@
+libpcap (1.8.1-3vyatta13) unstable; urgency=medium
+
+  * debian/control: libpcap0.8 now Provides/Replaces/Conflicts: libpcap0.8t64.
+    Debian:13/standard's own base repo ships its libpcap as libpcap0.8t64
+    (the 64-bit time_t transition rename), which conflicts outright with
+    this project's own libpcap0.8 -- every package depending on either name
+    (vyatta-dataplane and 20+ others, confirmed via osc results --verbose:
+    "libpcap0.8t64 conflicts with libpcap0.8 / obsoletes libpcap0.8") was
+    unresolvable project-wide as a result, even though libpcap0.8 itself
+    built fine. This keeps DANOS's own fork (needed for
+    vyatta-dataplane.patch's pcap-vyatta-dataplane.c capture backend) as the
+    package actually installed, rather than retiring it for Debian's -- that
+    would mean rebasing the DANOS patch onto libpcap 1.10.5's newer API, a
+    larger change out of scope here.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 09:00:00 +0800
+
 libpcap (1.8.1-3vyatta12) unstable; urgency=medium
 
   * debian/patches/series: restore the 10 patches this file lost in

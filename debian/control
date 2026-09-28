@@ -55,7 +55,9 @@ Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Replaces: libpcap0.8-dev (<< 1.0.0-2)
+Replaces: libpcap0.8-dev (<< 1.0.0-2), libpcap0.8t64
+Provides: libpcap0.8t64
+Conflicts: libpcap0.8t64
 Multi-Arch: same
 Description: system interface for user-level packet capture
  libpcap (Packet CAPture) provides a portable framework for low-level
