@@ -32,7 +32,7 @@ Package: libpcap0.8-dev
 Section: libdevel
 Architecture: any
 Depends: libc6-dev,
-         libpcap0.8 (= ${binary:Version}),
+         libpcap0.8t64 (= ${binary:Version}),
          ${misc:Depends}
 Provides: libpcap-dev
 Conflicts: libpcap-dev (<< 0.9),
@@ -50,15 +50,15 @@ Description: development library and header files for libpcap0.8
  to ease in porting and to alleviate the need for several
  system-dependent packet capture modules in each application.
 
-Package: libpcap0.8
+Package: libpcap0.8t64
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Replaces: libpcap0.8-dev (<< 1.0.0-2), libpcap0.8t64
-Provides: libpcap0.8t64
-Conflicts: libpcap0.8t64
+Replaces: libpcap0.8-dev (<< 1.0.0-2), libpcap0.8
+Provides: libpcap0.8
+Conflicts: libpcap0.8
 Multi-Arch: same
 Description: system interface for user-level packet capture
  libpcap (Packet CAPture) provides a portable framework for low-level
@@ -75,7 +75,7 @@ Package: libpcap0.8-dbg
 Section: debug
 Priority: extra
 Architecture: any
-Depends: libpcap0.8 (= ${binary:Version}),
+Depends: libpcap0.8t64 (= ${binary:Version}),
          ${misc:Depends},
          ${shlibs:Depends}
 Multi-Arch: same

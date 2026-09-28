@@ -1,3 +1,24 @@
+libpcap (1.8.1-3vyatta15) unstable; urgency=medium
+
+  * debian/control: rename the runtime package libpcap0.8 to libpcap0.8t64,
+    matching Debian trixie's own name for it exactly, instead of coexisting
+    under the old name with Provides/Replaces/Conflicts against Debian's
+    real libpcap0.8t64. That coexistence was not enough: Debian:13/standard's
+    own prebuilt DPDK (librte-net-pcap, pulled in by vyatta-dataplane's
+    Depends: librte-meta-allpmds) has libpcap0.8t64 baked into its own
+    ${shlibs:Depends} at the exact version Debian built it against -- fixed,
+    unchangeable, since we don't build DPDK ourselves -- so both "our"
+    libpcap0.8 and Debian's libpcap0.8t64 were being pulled into the same
+    build root regardless of Provides, and Conflicts (correctly) refused to
+    let both install: "libpcap0.8t64 conflicts with libpcap0.8" both ways.
+    Being the actual libpcap0.8t64 ourselves removes the second candidate
+    entirely -- there is only ever the one package satisfying that name now,
+    ours, with DANOS's own patches (shared-lib.diff, vyatta-dataplane.patch)
+    still applied. libpcap0.8-dev's own name and its consumers (libvirt, ppp)
+    are unaffected; only its internal Depends now points at the new name.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 10:00:00 +0800
+
 libpcap (1.8.1-3vyatta14) unstable; urgency=medium
 
   * debian/control: libpcap0.8-dev now Provides: libpcap-dev. Five packages
