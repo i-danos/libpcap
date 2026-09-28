@@ -1,3 +1,20 @@
+libpcap (1.8.1-3vyatta14) unstable; urgency=medium
+
+  * debian/control: libpcap0.8-dev now Provides: libpcap-dev. Five packages
+    (dpdk, ndpi, vermont, vyatta-dataplane, vyatta-ndpi-support) declare a
+    generic "libpcap-dev (>= 1.7.0)" Build-Depends matching Debian's own
+    package name, not this project's versioned "libpcap0.8-dev" -- without
+    this Provides, that generic name could only be satisfied by Debian's
+    real libpcap-dev, which depends on libpcap0.8t64 and conflicts with our
+    own libpcap0.8 pulled in by other packages still using the old name in
+    the same build root: "libpcap0.8t64 conflicts with libpcap0.8" both
+    ways. It also means vyatta-dataplane would otherwise have built against
+    Debian's stock libpcap instead of this project's fork -- missing
+    vyatta-dataplane.patch's own pcap-vyatta-dataplane.c capture backend
+    entirely, a correctness bug hiding behind the resolver failure.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 09:30:00 +0800
+
 libpcap (1.8.1-3vyatta13) unstable; urgency=medium
 
   * debian/control: libpcap0.8 now Provides/Replaces/Conflicts: libpcap0.8t64.

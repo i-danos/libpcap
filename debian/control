@@ -34,6 +34,7 @@ Architecture: any
 Depends: libc6-dev,
          libpcap0.8 (= ${binary:Version}),
          ${misc:Depends}
+Provides: libpcap-dev
 Conflicts: libpcap-dev (<< 0.9),
            libpcap0.7-dev
 Description: development library and header files for libpcap0.8
