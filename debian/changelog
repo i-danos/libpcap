@@ -1,3 +1,17 @@
+libpcap (1:1.8.1-3vyatta19) unstable; urgency=medium
+
+  * debian/patches/shared-lib.diff: fix the LIBVERSION regex that
+    derives the shared-lib version suffix from debian/changelog's top
+    version. It assumed no epoch, so vyatta18's epoch made it capture
+    "1:1.8.1" (colon and all) instead of "1.8.1"; that colon then
+    leaked into the Makefile's $(SHAREDLIB) target/prereq and GNU
+    make misparsed it as a static-pattern-rule separator ("Makefile:
+    384: *** target pattern contains no '%'. Stop."), which is why
+    vyatta18 failed to build on OBS. Now skips an optional leading
+    "N:" epoch before capturing the version.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 17:05:00 +0800
+
 libpcap (1:1.8.1-3vyatta18) unstable; urgency=medium
 
   * Add epoch 1: Debian trixie's real tcpdump depends on
