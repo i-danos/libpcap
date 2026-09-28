@@ -1,3 +1,15 @@
+libpcap (1.8.1-3vyatta16) unstable; urgency=medium
+
+  * Rename the per-package debhelper config files to match: debian/
+    libpcap0.8.{install,docs,symbols,README.Debian} -> libpcap0.8t64.*.
+    vyatta15's control rename alone left dh_install with no .install file
+    matching the new package name, so libpcap.so.0.8/libpcap.so.1.8.1 were
+    built but never installed anywhere: "dh_missing: error: missing files,
+    aborting". Also updated the symbols file's own internal package name
+    (the "libpcap.so.0.8 libpcap0.8 #MINVER#" header line).
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 10:30:00 +0800
+
 libpcap (1.8.1-3vyatta15) unstable; urgency=medium
 
   * debian/control: rename the runtime package libpcap0.8 to libpcap0.8t64,
