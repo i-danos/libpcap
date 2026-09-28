@@ -57,7 +57,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Replaces: libpcap0.8-dev (<< 1.0.0-2), libpcap0.8
-Provides: libpcap0.8
+Provides: libpcap0.8 (= ${binary:Version})
 Conflicts: libpcap0.8
 Multi-Arch: same
 Description: system interface for user-level packet capture

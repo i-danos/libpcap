@@ -1,3 +1,17 @@
+libpcap (1:1.8.1-3vyatta18) unstable; urgency=medium
+
+  * Add epoch 1: Debian trixie's real tcpdump depends on
+    libpcap0.8t64 (>= 1.9.1), but this fork's upstream base is 1.8.1
+    (SONAME/ABI-compatible, version number just lower). Without an
+    epoch this makes tcpdump uninstallable alongside our libpcap0.8t64.
+  * debian/control: give the libpcap0.8 Provides an explicit version
+    (${binary:Version}) instead of leaving it unversioned. An
+    unversioned Provides cannot satisfy a versioned Depends, which
+    left vermont and vyatta-dataplane (both "Depends: libpcap0.8
+    (>= 0.9.8)") unresolvable.
+
+ -- DANOS <noreply@danos.io>  Mon, 28 Sep 2026 16:30:00 +0800
+
 libpcap (1.8.1-3vyatta17) unstable; urgency=medium
 
   * Add debian/libpcap.pc.in, generated into libpcap0.8-dev at
