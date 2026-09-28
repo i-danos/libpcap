@@ -9,7 +9,7 @@ build a shared library.
  
 +# some defines for shared library compilation
 +MAJ=0.8
-+LIBVERSION=$(shell head -1 debian/changelog | perl -nle 'm/\S+\s+\((\S+)-\S+\)/ and print $$1')
++LIBVERSION=$(shell head -1 debian/changelog | perl -nle 'm/\S+\s+\((?:[0-9]+:)?(\S+)-\S+\)/ and print $$1')
 +LIBNAME=pcap
 +LIBRARY=lib$(LIBNAME).a
 +SOLIBRARY=lib$(LIBNAME).so
